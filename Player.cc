@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Game.h"
 
-Player::Player(b2World* m_world) {
+void Player::setCar(b2World* m_world) {
 	m_car = new Car(m_world);
 }
 

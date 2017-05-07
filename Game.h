@@ -8,13 +8,13 @@ class Game {
   	private:
   		b2Body*  m_groundBody;
 	  	b2World* m_world;
-    	Player player(m_world);
+    	Player player;
 
   	public:
     	Game();
     	~Game();
     	void Step();
-    	World  getWorld();
+    	b2World* getWorld();
     	Player getPlayer();
 };
 
