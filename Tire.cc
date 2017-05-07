@@ -2,12 +2,12 @@
 
 Tire::Tire(b2World* world) {
     b2BodyDef bodyDef;
-    bodyDef.position.Set(XPOS/RATIO, YPOS/RATIO);
+   // bodyDef.position.Set(0, 0);
     bodyDef.type = b2_dynamicBody;
     m_body = world->CreateBody(&bodyDef);
 
     b2PolygonShape polygonShape;
-    polygonShape.SetAsBox( 0.5f*CAR_WIDTH/RATIO, 1.25f*CAR_WIDTH/RATIO, b2Vec2(0,0), -90*DEGTORAD);
+    polygonShape.SetAsBox( TIRE_WIDTH/2/RATIO, TIRE_HEIGHT/2/RATIO);
     b2Fixture* fixture = m_body->CreateFixture(&polygonShape, 1);//shape, density
     fixture->SetUserData( new CarTireFUD() );
 
@@ -21,6 +21,10 @@ Tire::Tire(b2World* world) {
 
 sf::Sprite Tire::getSprite() {
 	return m_sTire;
+}
+
+b2Body* Tire::getBody() {
+    return m_body;
 }
 
 Tire::~Tire() {

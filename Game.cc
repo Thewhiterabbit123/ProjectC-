@@ -3,19 +3,16 @@
 
 void Game::setWalls() {
 	b2BodyDef bodyDef;
-	bodyDef.position.Set(0.0f, 0.0f);
+	bodyDef.position.Set(0, 0);
 	m_groundBody = m_world->CreateBody( &bodyDef );
 
-	b2PolygonShape polygonShape;
+	/*b2PolygonShape polygonShape;
 	b2FixtureDef fixtureDef;
   	fixtureDef.shape = &polygonShape;
    	fixtureDef.isSensor = false;
 
-
 	polygonShape.SetAsBox( 5.0f/RATIO, 150.0f/RATIO, b2Vec2(130.0f/RATIO,400.0f/RATIO), 0 );
-	m_groundBody->CreateFixture(&fixtureDef);
-
-
+	m_groundBody->CreateFixture(&fixtureDef);*/
 }
 
 Game::Game(sf::RenderWindow* window): m_window(window) {
@@ -41,14 +38,23 @@ Player Game::getPlayer() {
 
 void Game::step() {
 	//m_window->draw(m_sBackGround);
-	Car* _m_sCar = player.getCar();
-	sf::Sprite m_sCar = _m_sCar->getSprite();
-	m_sCar.setPosition(100,100);
-	m_window->draw(m_sCar);
-	std::vector<Tire*> tires = _m_sCar->getTires();
+	Car* Car = player.getCar();
+	
+	sf::Sprite sCar = Car->getSprite();
+	sCar.setOrigin(CAR_WIDTH/2, CAR_HEIGHT/2);
+	
+	b2Vec2 vec = Car->getBody()->GetPosition();
+	std::cout << vec.x * RATIO << std::endl;
+	
+	sCar.setPosition(vec.x*RATIO, vec.y*RATIO);
+	m_window->draw(sCar);
+	std::vector<Tire*> tires = Car->getTires();
 	for(int i = 0; i < tires.size(); i++) {
-		sf::Sprite m_sTire = tires[i]->getSprite();
-		m_window->draw(m_sTire);
+		sf::Sprite sTire = tires[i]->getSprite();
+		sTire.setOrigin(TIRE_WIDTH/2, TIRE_HEIGHT/2);
+		vec = tires[i]->getBody()->GetPosition();
+		sTire.setPosition(vec.x*RATIO,vec.y*RATIO);
+		m_window->draw(sTire);
 	}
 
 

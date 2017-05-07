@@ -14,10 +14,3 @@ Car* Player::getCar() {
 }
 
 
-/*Square::Square(b2World* m_world) {
-	b2bodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-	m_body = m_world->CreateBody(&bodyDef);
-
-
-*/

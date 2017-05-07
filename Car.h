@@ -16,6 +16,7 @@ class Car {
         sf::Sprite  m_sCar;
 	public:
 		Car(b2World* world);
+		b2Body* getBody();
 		
 		void update(int controlState);
 		std::vector<Tire*> getTires();

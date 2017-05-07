@@ -17,13 +17,4 @@ class Player {
 	
 };
 
-/*class Square {
-private:
-	b2Body* m_body;
-public:
-	Square(b2World* m_world);
-	void move();
-
-};*/
-
 #endif

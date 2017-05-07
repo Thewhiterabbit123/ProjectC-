@@ -13,10 +13,14 @@
 #define RADTODEG 57.295779513082320876f
 #define DEGTORAD 0.0174532925199432957f
 
-#define CAR_WIDTH 2.8f
+#define CAR_WIDTH 23
+#define CAR_HEIGHT 39
 
-#define XPOS 500
-#define YPOS 400
+#define TIRE_WIDTH 2.8
+#define TIRE_HEIGHT 7
+
+#define XPOS 100
+#define YPOS 100
 
 
 enum {

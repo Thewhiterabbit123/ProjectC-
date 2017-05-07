@@ -15,7 +15,7 @@ class Game {
 	    sf::Sprite m_sBackGround;
 
 	    Player player;
-	    //Square square(m_world);
+
 	    void setWalls();
 
   	public:

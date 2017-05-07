@@ -16,7 +16,7 @@ int main () {
                 window.close();
             }
         }
-    
+        game->getWorld()->Step(1/60.f, 8, 3);
         game->step();
         window.display();
         window.clear(sf::Color::White);

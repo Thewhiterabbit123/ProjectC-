@@ -8,7 +8,7 @@
 
 class Tire {
     public:
-        b2Body* m_body;
+
         float m_maxForwardSpeed;
         float m_maxBackwardSpeed;
         float m_maxDriveForce;
@@ -33,7 +33,9 @@ class Tire {
         b2Vec2 getLateralVelocity();
 
         sf::Sprite getSprite();
+        b2Body* getBody();
     private: 
+        b2Body* m_body;
     	sf::Texture m_tTire;
         sf::Sprite  m_sTire;
 };
