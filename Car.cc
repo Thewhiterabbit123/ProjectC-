@@ -9,7 +9,7 @@ Car::Car(b2World* world) {
     m_body->SetAngularDamping(3);
 
     //SFML()
-    m_tCar.loadFromFile("./Images/car.png");
+    m_tCar.loadFromFile("./Images/car2.png");
     m_tCar.setSmooth(true);
     m_sCar.setTexture(m_tCar);
     m_sCar.scale(1,1);
@@ -73,4 +73,13 @@ Car::Car(b2World* world) {
     jointDef.localAnchorA.Set( -8.5f/RATIO, 3/RATIO);
     frJoint = (b2RevoluteJoint*)world->CreateJoint( &jointDef );
     m_tires.push_back(tire);
+}
+
+
+sf::Sprite Car::getSprite() {
+	return m_sCar;
+}
+
+std::vector<Tire*> Car::getTires() {
+	return m_tires;
 }

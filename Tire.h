@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 #include <Box2D/Box2D.h>
+#include <SFML/Graphics.hpp>
 
 
 class Tire {
@@ -30,6 +31,11 @@ class Tire {
 
         b2Vec2 getForwardVelocity();
         b2Vec2 getLateralVelocity();
+
+        sf::Sprite getSprite();
+    private: 
+    	sf::Texture m_tTire;
+        sf::Sprite  m_sTire;
 };
 
 #endif

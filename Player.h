@@ -12,6 +12,7 @@ class Player {
 		std::vector<int> m_score;
 	public:
 		void setCar(b2World* m_world);
+		Car* getCar();
 		~Player();
 	
 };

@@ -9,6 +9,9 @@ Player::~Player() {
 	delete m_car;
 }
 
+Car* Player::getCar() {
+	return m_car;
+}
 
 
 /*Square::Square(b2World* m_world) {

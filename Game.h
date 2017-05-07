@@ -10,13 +10,13 @@ class Game {
   		b2Body*  m_groundBody;
 	  	b2World* m_world;
 
-      sf::RenderWindow* m_window;
-      sf::Texture m_tBackGround;
-      sf::Sprite m_sBackGround;
+	    sf::RenderWindow* m_window;
+	    sf::Texture m_tBackGround;
+	    sf::Sprite m_sBackGround;
 
-    	Player player;
-      //Square square(m_world);
-      void setWalls();
+	    Player player;
+	    //Square square(m_world);
+	    void setWalls();
 
   	public:
     	Game(sf::RenderWindow* window);

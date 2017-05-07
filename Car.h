@@ -13,13 +13,13 @@ class Car {
         b2RevoluteJoint *flJoint, *frJoint;
 
         sf::Texture m_tCar;
-        sf::Sprite m_sCar;
+        sf::Sprite  m_sCar;
 	public:
-		Car() {};
 		Car(b2World* world);
-		~Car() {};
-
+		
 		void update(int controlState);
+		std::vector<Tire*> getTires();
+		sf::Sprite getSprite();
 	
 };
 

@@ -1,4 +1,5 @@
 #include "Game.h"
+#include <iostream>
 
 void Game::setWalls() {
 	b2BodyDef bodyDef;
@@ -39,5 +40,16 @@ Player Game::getPlayer() {
 }
 
 void Game::step() {
-	m_window->draw(m_sBackGround);
+	//m_window->draw(m_sBackGround);
+	Car* _m_sCar = player.getCar();
+	sf::Sprite m_sCar = _m_sCar->getSprite();
+	m_sCar.setPosition(100,100);
+	m_window->draw(m_sCar);
+	std::vector<Tire*> tires = _m_sCar->getTires();
+	for(int i = 0; i < tires.size(); i++) {
+		sf::Sprite m_sTire = tires[i]->getSprite();
+		m_window->draw(m_sTire);
+	}
+
+
 }
