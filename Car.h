@@ -11,9 +11,9 @@ class Car {
         std::vector<Tire*> m_tires;
         b2RevoluteJoint *flJoint, *frJoint;
 	public:
-		Car();
+		Car() {};
 		Car(b2World* world);
-		~Car();
+		~Car() {};
 
 		void update(int controlState);
 	

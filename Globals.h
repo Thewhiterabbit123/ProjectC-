@@ -26,4 +26,36 @@ enum {
     DOWN     = 0x8
 };
 
+enum fixtureUserDataType {
+    FUD_CAR_TIRE,
+    FUD_GROUND_AREA
+};
+
+class FixtureUserData {
+        fixtureUserDataType m_type;
+    protected:
+        FixtureUserData(fixtureUserDataType type) : m_type(type) {}
+    public:
+        virtual fixtureUserDataType getType() { return m_type; }
+        virtual ~FixtureUserData() {}
+};
+
+class CarTireFUD : public FixtureUserData {
+    public:
+        CarTireFUD() : FixtureUserData(FUD_CAR_TIRE) {}
+};
+
+
+class GroundAreaFUD : public FixtureUserData {
+    public:
+        float frictionModifier;
+        bool outOfCourse;
+        int number;
+
+        GroundAreaFUD(float fm, bool ooc, int number) : FixtureUserData(FUD_GROUND_AREA), number(number) {
+            frictionModifier = fm;
+            outOfCourse = ooc;
+        }
+};
+
 #endif
