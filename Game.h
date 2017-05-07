@@ -1,18 +1,21 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "World.h"
 #include "Player.h"
+#include <Box2D/Box2D.h>
 
 class Game {
-  private:
-  	World world;
-    Player player;
+  	private:
+  		b2Body*  m_groundBody;
+	  	b2World* m_world;
+    	Player player(m_world);
 
-  public:
-    Game();
-    ~Game();
-    Step();
+  	public:
+    	Game();
+    	~Game();
+    	void Step();
+    	World  getWorld();
+    	Player getPlayer();
 };
 
 #endif

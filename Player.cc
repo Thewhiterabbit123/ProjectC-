@@ -1,7 +1,8 @@
 #include "Player.h"
+#include "Game.h"
 
-Player::Player() {
-	m_car = new Car(Game::world->getb2World);
+Player::Player(b2World* m_world) {
+	m_car = new Car(m_world);
 }
 
 Player::~Player() {

@@ -11,7 +11,6 @@ Tire::Tire(b2World* world) {
     b2Fixture* fixture = m_body->CreateFixture(&polygonShape, 1);//shape, density
     fixture->SetUserData( new CarTireFUD() );
 
-    m_body->SetUserData("Tire");
 
     m_currentTraction = 1;
 }
@@ -21,9 +20,9 @@ Tire::~Tire() {
 }
 
 void Tire::setCharacteristics(float maxForwardSpeed, 
-                                float maxBackwardSpeed, 
-                                float maxDriveForce, 
-                                float maxLateralImpulse) {
+                              float maxBackwardSpeed, 
+                              float maxDriveForce, 
+                              float maxLateralImpulse) {
     m_maxForwardSpeed   = maxForwardSpeed;
     m_maxBackwardSpeed  = maxBackwardSpeed;
     m_maxDriveForce     = maxDriveForce;
@@ -45,7 +44,7 @@ void Tire::updateFriction() {
 
 void Tire::updateDrive(int controlState) {
     float desiredSpeed = 0;
-    switch (controlState & (TDC_UP|TDC_DOWN)) {
+    switch (controlState & (UP|DOWN)) {
         case UP:   desiredSpeed = m_maxForwardSpeed;  break;
         case DOWN: desiredSpeed = m_maxBackwardSpeed; break;
         default: return;//do nothing
@@ -68,7 +67,7 @@ void Tire::updateDrive(int controlState) {
 
 void Tire::updateTurn(int controlState) {
     float desiredTorque = 0;
-    switch ( controlState & (TDC_LEFT|TDC_RIGHT) ) {
+    switch ( controlState & (LEFT|RIGHT) ) {
         case LEFT:  desiredTorque = 15;  break;
         case RIGHT: desiredTorque = -15; break;
         default: ;//nothing

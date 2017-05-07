@@ -1,4 +1,6 @@
-Car::Car(b2World* world): {
+#include "Car.h"
+
+Car::Car(b2World* world) {
 	//create car body
     b2BodyDef bodyDef;
     bodyDef.position.Set(XPOS/RATIO, YPOS/RATIO);
@@ -33,7 +35,7 @@ Car::Car(b2World* world): {
     float frontTireMaxLateralImpulse = 7.5*CAR_WIDTH/RATIO;
 
     //back left tire
-    TDTire* tire = new TDTire(world);
+    Tire* tire = new Tire(world);
     tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
     jointDef.bodyB = tire->m_body;
     jointDef.localAnchorA.Set( -0.75f/RATIO, -3/RATIO );
@@ -41,7 +43,7 @@ Car::Car(b2World* world): {
     m_tires.push_back(tire);
 
     //back right tire
-    tire = new TDTire(world);
+    tire = new Tire(world);
     tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
     jointDef.bodyB = tire->m_body;
     jointDef.localAnchorA.Set( -0.75f/RATIO, 3/RATIO );
@@ -49,7 +51,7 @@ Car::Car(b2World* world): {
     m_tires.push_back(tire);
 
     //front left tire
-    tire = new TDTire(world);
+    tire = new Tire(world);
     tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
     jointDef.bodyB = tire->m_body;
     jointDef.localAnchorA.Set( -8.5f/RATIO, -3/RATIO );
@@ -57,7 +59,7 @@ Car::Car(b2World* world): {
     m_tires.push_back(tire);
 
     //front right tire
-    tire = new TDTire(world);
+    tire = new Tire(world);
     tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
     jointDef.bodyB = tire->m_body;
     jointDef.localAnchorA.Set( -8.5f/RATIO, 3/RATIO);

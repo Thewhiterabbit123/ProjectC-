@@ -18,4 +18,12 @@
 #define XPOS 500
 #define YPOS 400
 
+
+enum {
+    LEFT     = 0x1,
+    RIGHT    = 0x2,
+    UP       = 0x4,
+    DOWN     = 0x8
+};
+
 #endif

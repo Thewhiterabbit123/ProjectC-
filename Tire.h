@@ -2,13 +2,8 @@
 #define TIRE_H
 
 #include "Globals.h"
+#include <Box2D/Box2D.h>
 
-enum {
-    LEFT     = 0x1,
-    RIGHT    = 0x2,
-    UP       = 0x4,
-    DOWN     = 0x8
-};
 
 class Tire {
     public:
@@ -31,6 +26,7 @@ class Tire {
         
         void updateDrive(int controlState);
         void updateTurn(int controlState) ;
+        void updateFriction();
 
         b2Vec2 getForwardVelocity();
         b2Vec2 getLateralVelocity();
