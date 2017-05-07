@@ -2,7 +2,7 @@
 
 Tire::Tire(b2World* world) {
     b2BodyDef bodyDef;
-   // bodyDef.position.Set(0, 0);
+    bodyDef.position.Set(XPOS/RATIO, YPOS/RATIO);
     bodyDef.type = b2_dynamicBody;
     m_body = world->CreateBody(&bodyDef);
 

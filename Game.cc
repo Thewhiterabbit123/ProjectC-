@@ -6,13 +6,16 @@ void Game::setWalls() {
 	bodyDef.position.Set(0, 0);
 	m_groundBody = m_world->CreateBody( &bodyDef );
 
-	/*b2PolygonShape polygonShape;
+	b2PolygonShape polygonShape;
 	b2FixtureDef fixtureDef;
   	fixtureDef.shape = &polygonShape;
    	fixtureDef.isSensor = false;
 
 	polygonShape.SetAsBox( 5.0f/RATIO, 150.0f/RATIO, b2Vec2(130.0f/RATIO,400.0f/RATIO), 0 );
-	m_groundBody->CreateFixture(&fixtureDef);*/
+	m_groundBody->CreateFixture(&fixtureDef);
+
+	polygonShape.SetAsBox( 2000/RATIO, 10.0f/RATIO, b2Vec2(350.0f/RATIO,600.0f/RATIO), 0 );
+	m_groundBody->CreateFixture(&fixtureDef);
 }
 
 Game::Game(sf::RenderWindow* window): m_window(window) {
@@ -22,7 +25,7 @@ Game::Game(sf::RenderWindow* window): m_window(window) {
 	m_tBackGround.loadFromFile("./Images/background.png");
 	m_tBackGround.setSmooth(true);
 	m_sBackGround.setTexture(m_tBackGround);
-	m_sBackGround.scale(0.5,0.5);
+	m_sBackGround.scale(1,1);
 	
 
 	setWalls();
@@ -44,8 +47,10 @@ void Game::step() {
 	sCar.setOrigin(CAR_WIDTH/2, CAR_HEIGHT/2);
 	
 	b2Vec2 vec = Car->getBody()->GetPosition();
-	std::cout << vec.x * RATIO << std::endl;
+	float angle = Car->getBody()->GetAngle();
+	//std::cout << vec.x * RATIO << std::endl;
 	
+	sCar.setRotation(angle*RADTODEG);
 	sCar.setPosition(vec.x*RATIO, vec.y*RATIO);
 	m_window->draw(sCar);
 	std::vector<Tire*> tires = Car->getTires();
@@ -53,6 +58,8 @@ void Game::step() {
 		sf::Sprite sTire = tires[i]->getSprite();
 		sTire.setOrigin(TIRE_WIDTH/2, TIRE_HEIGHT/2);
 		vec = tires[i]->getBody()->GetPosition();
+		angle = tires[i]->getBody()->GetAngle();
+		sTire.setRotation(angle*RADTODEG);
 		sTire.setPosition(vec.x*RATIO,vec.y*RATIO);
 		m_window->draw(sTire);
 	}

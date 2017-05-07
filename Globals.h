@@ -16,8 +16,10 @@
 #define CAR_WIDTH 23
 #define CAR_HEIGHT 39
 
-#define TIRE_WIDTH 2.8
-#define TIRE_HEIGHT 7
+#define TIRE_WIDTH 7
+#define TIRE_HEIGHT 20
+
+#define INTERVAL 2
 
 #define XPOS 100
 #define YPOS 100
