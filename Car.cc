@@ -8,6 +8,14 @@ Car::Car(b2World* world) {
     m_body = world->CreateBody(&bodyDef);
     m_body->SetAngularDamping(3);
 
+    //SFML()
+    m_tCar.loadFromFile("./Images/car.png");
+    m_tCar.setSmooth(true);
+    m_sCar.setTexture(m_tCar);
+    m_sCar.scale(1,1);
+
+
+
     b2Vec2 vertices[4];
     //center of the car is (12.5, 19.5)
     vertices[0].Set( 6.25/RATIO,   9.75/RATIO);

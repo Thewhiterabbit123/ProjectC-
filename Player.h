@@ -3,6 +3,7 @@
 
 #include "Car.h"
 #include <vector>
+#include <Box2D/Box2D.h>
 
 
 class Player {
@@ -14,5 +15,14 @@ class Player {
 		~Player();
 	
 };
+
+/*class Square {
+private:
+	b2Body* m_body;
+public:
+	Square(b2World* m_world);
+	void move();
+
+};*/
 
 #endif

@@ -6,7 +6,7 @@
 int main () {
 	sf::RenderWindow window(sf::VideoMode(1366, 768), "RACE!");
 	window.setFramerateLimit(70);
-	Game* game = new Game();
+	Game* game = new Game(&window);
 	while (window.isOpen()) {
 
         sf::Event Event;
@@ -17,7 +17,9 @@ int main () {
             }
         }
     
-        game->Step();
+        game->step();
+        window.display();
+        window.clear(sf::Color::White);
     }
 
 }

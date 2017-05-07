@@ -11,7 +11,6 @@ Tire::Tire(b2World* world) {
     b2Fixture* fixture = m_body->CreateFixture(&polygonShape, 1);//shape, density
     fixture->SetUserData( new CarTireFUD() );
 
-
     m_currentTraction = 1;
 }
 
