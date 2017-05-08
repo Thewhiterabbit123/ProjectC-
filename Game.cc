@@ -1,5 +1,9 @@
 #include "Game.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
+#include "Globals.h"
+
+
 
 void Game::setWalls() {
 	b2BodyDef bodyDef;
@@ -49,7 +53,9 @@ void Game::step() {
 	b2Vec2 vec = Car->getBody()->GetPosition();
 	float angle = Car->getBody()->GetAngle();
 	//std::cout << vec.x * RATIO << std::endl;
+
 	
+
 	sCar.setRotation(angle*RADTODEG);
 	sCar.setPosition(vec.x*RATIO, vec.y*RATIO);
 	m_window->draw(sCar);
@@ -65,4 +71,27 @@ void Game::step() {
 	}
 
 
+}
+
+
+void Game::Keyboard(const char key) {
+    int m_controlState;
+    switch (key) {
+        case 'A' : m_controlState |= LEFT; break;
+        case 'D' : m_controlState |= RIGHT; break;
+        case 'W' : m_controlState |= UP; break;
+        case 'S' : m_controlState |= DOWN; break;
+    }
+    Car* Car = player.getCar();
+    Car->update(m_controlState);
+}
+
+void Game::KeyboardUp(const char key) {
+	int m_controlState;
+    switch (key) {
+        case 'a' : m_controlState &= ~LEFT; break;
+        case 'd' : m_controlState &= ~RIGHT; break;
+        case 'w' : m_controlState &= ~UP; break;
+        case 's' : m_controlState &= ~DOWN; break;
+    }
 }

@@ -18,7 +18,10 @@ class Game {
 
 	    void setWalls();
 
+
   	public:
+      void Keyboard(const char key);
+      void KeyboarUp(const char key);
     	Game(sf::RenderWindow* window);
     	~Game();
     	void step();

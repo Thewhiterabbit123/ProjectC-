@@ -9,12 +9,6 @@
 class Tire {
     public:
 
-        float m_maxForwardSpeed;
-        float m_maxBackwardSpeed;
-        float m_maxDriveForce;
-        float m_maxLateralImpulse;
-        float m_currentTraction;
-
         Tire(b2World* world);
         ~Tire();
 
@@ -34,7 +28,15 @@ class Tire {
 
         sf::Sprite getSprite();
         b2Body* getBody();
+        
     private: 
+
+        float m_maxBackwardSpeed;
+        float m_maxDriveForce;
+        float m_maxLateralImpulse;
+        float m_currentTraction;
+        float m_maxForwardSpeed;
+
         b2Body* m_body;
     	sf::Texture m_tTire;
         sf::Sprite  m_sTire;

@@ -15,7 +15,33 @@ int main () {
             if (Event.type == sf::Event::Closed) {
                 window.close();
             }
+
+
+
+            if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Left) {
+                game->Keyboard('A');
+                std::cout<<"A";
+            }
+
+            if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Right)  {
+                game->Keyboard('D');
+                std::cout<<"D";
+            }
+
+            if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Up)  { 
+                game->Keyboard('W'); 
+                std::cout<<"W";
+            }
+
+            if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Down)  { 
+                game->Keyboard('S');
+                std::cout<<"s";
+            }
         }
+        Player* player = game->getPlayer();
+        Car* Car = player.getCar();
+
+
         game->getWorld()->Step(1/60.f, 8, 3);
         game->step();
         window.display();
