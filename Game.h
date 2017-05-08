@@ -17,6 +17,7 @@ class Game {
 	    Player player;
 
 	    void setWalls();
+      int m_controlState;
 
 
   	public:

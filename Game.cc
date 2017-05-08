@@ -24,15 +24,18 @@ void Game::setWalls() {
 
 Game::Game(sf::RenderWindow* window): m_window(window) {
 	m_world = new b2World(b2Vec2(0,0));
+	m_world->SetGravity( b2Vec2(0,0) );
+
 	player.setCar(m_world);
 	
 	m_tBackGround.loadFromFile("./Images/background.png");
 	m_tBackGround.setSmooth(true);
 	m_sBackGround.setTexture(m_tBackGround);
 	m_sBackGround.scale(1,1);
+	m_controlState = 0;
 	
 
-	setWalls();
+	//setWalls();
 }
 
 b2World* Game::getWorld() {
@@ -75,7 +78,6 @@ void Game::step() {
 
 
 void Game::Keyboard(const char key) {
-    int m_controlState;
     switch (key) {
         case 'A' : m_controlState |= LEFT; break;
         case 'D' : m_controlState |= RIGHT; break;
@@ -84,14 +86,17 @@ void Game::Keyboard(const char key) {
     }
     Car* Car = player.getCar();
     Car->update(m_controlState);
+    std::cout << m_controlState << std::endl;
 }
 
 void Game::KeyboardUp(const char key) {
-	int m_controlState;
     switch (key) {
-        case 'a' : m_controlState &= ~LEFT; break;
-        case 'd' : m_controlState &= ~RIGHT; break;
-        case 'w' : m_controlState &= ~UP; break;
-        case 's' : m_controlState &= ~DOWN; break;
+        case 'A' : m_controlState &= ~LEFT; break;
+        case 'D' : m_controlState &= ~RIGHT; break;
+        case 'W' : m_controlState &= ~UP; break;
+        case 'S' : m_controlState &= ~DOWN; break;
     }
+    Car* Car = player.getCar();
+    Car->update(m_controlState);
+    std::cout << m_controlState << std::endl;
 }
