@@ -21,7 +21,7 @@ class Game {
 
   	public:
       void Keyboard(const char key);
-      void KeyboarUp(const char key);
+      void KeyboardUp(const char key);
     	Game(sf::RenderWindow* window);
     	~Game();
     	void step();
