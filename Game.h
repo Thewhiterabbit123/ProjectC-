@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include <Box2D/Box2D.h>
+#include <SFML/Audio.hpp>
 
 class Game {
   	private:
@@ -13,6 +14,9 @@ class Game {
 	    sf::RenderWindow* m_window;
 	    sf::Texture m_tBackGround;
 	    sf::Sprite m_sBackGround;
+      sf::SoundBuffer buffer;
+      sf::Sound sound;
+      sf::Music music;
 
 	    Player player;
 
@@ -25,7 +29,6 @@ class Game {
       void keyboard(const char key);
       void keyboardUp(const char key);
     	Game(sf::RenderWindow* window);
-    	~Game();
     	void step();
     	b2World* getWorld();
     	Player getPlayer();

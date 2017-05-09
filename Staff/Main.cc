@@ -26,7 +26,7 @@ int main () {
         }
 
         sf::Font font;
-        font.loadFromFile("./Staff/CyrilicOld.ttf");
+        font.loadFromFile("./CyrilicOld.ttf");
         sf::Text text("", font, 20);
         text.setColor(sf::Color::Red);
         text.setStyle(sf::Text::Bold);

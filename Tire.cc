@@ -13,7 +13,7 @@ Tire::Tire(b2World* world) {
 
     m_currentTraction = 1;
 
-    m_tTire.loadFromFile("./Images/tire.png");
+    m_tTire.loadFromFile("./Staff/tire.png");
     m_tTire.setSmooth(true);
     m_sTire.setTexture(m_tTire);
     m_sTire.scale(1,1);

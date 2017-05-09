@@ -9,7 +9,7 @@ Car::Car(b2World* world) {
     m_body->SetAngularDamping(3);
 
     //SFML()
-    m_tCar.loadFromFile("./Images/car2.png");
+    m_tCar.loadFromFile("./Staff/car2.png");
     m_tCar.setSmooth(true);
     m_sCar.setTexture(m_tCar);
     m_sCar.scale(1,1);
