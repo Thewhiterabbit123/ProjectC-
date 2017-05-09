@@ -62,7 +62,7 @@ void Tire::updateDrive(int controlState) {
         default: return;//do nothing
     }
     
-    b2Vec2 currentForwardNormal = m_body->GetWorldVector( b2Vec2(-1,0) );
+    b2Vec2 currentForwardNormal = m_body->GetWorldVector( b2Vec2(0,1) );
     float currentSpeed = b2Dot( getForwardVelocity(), currentForwardNormal );
     float force = 0;
     if (desiredSpeed > currentSpeed) {
@@ -88,11 +88,11 @@ void Tire::updateTurn(int controlState) {
 }
 
 b2Vec2 Tire::getLateralVelocity() {
-    b2Vec2 currentRightNormal = m_body->GetWorldVector( b2Vec2(0,1) );
+    b2Vec2 currentRightNormal = m_body->GetWorldVector( b2Vec2(1,0) );
     return b2Dot( currentRightNormal, m_body->GetLinearVelocity() ) * currentRightNormal;
 }
 
 b2Vec2 Tire::getForwardVelocity() {
-    b2Vec2 currentForwardNormal = m_body->GetWorldVector( b2Vec2(-1, 0) );
+    b2Vec2 currentForwardNormal = m_body->GetWorldVector( b2Vec2(0, 1) );
     return b2Dot( currentForwardNormal, m_body->GetLinearVelocity() ) * currentForwardNormal;
 }

@@ -23,38 +23,6 @@ int main () {
                 window.close();
             }
 
-            if (Event.type == sf::Event::KeyPressed  && Event.key.code == sf::Keyboard::Left) {
-                game->Keyboard('A');
-                std::cout<<"A";
-            }
-            if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Right)  {
-                game->Keyboard('D');
-                std::cout<<"D";
-            }
-            if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Up)  { 
-                game->Keyboard('W'); 
-                std::cout<<"W";
-            }
-            if (Event.type == sf::Event::KeyPressed && Event.key.code == sf::Keyboard::Down)  { 
-                game->Keyboard('S');
-                std::cout<<"s";
-            }
-            if (Event.type == sf::Event::KeyReleased && Event.key.code == sf::Keyboard::Left) {
-                game->KeyboardUp('A');
-                std::cout<<"LOL1"<<std::endl;
-            }
-            if (Event.type == sf::Event::KeyReleased && Event.key.code == sf::Keyboard::Right)  {
-                game->KeyboardUp('D');
-                std::cout<<"LOL2"<<std::endl;
-            }
-            if (Event.type == sf::Event::KeyReleased && Event.key.code == sf::Keyboard::Up)  { 
-                game->KeyboardUp('W'); 
-                std::cout<<"LOL3"<<std::endl;
-            }
-            if (Event.type == sf::Event::KeyReleased && Event.key.code == sf::Keyboard::Down)  { 
-                game->KeyboardUp('S');
-                std::cout<<"LOL4"<<std::endl;
-            }
         }
         //?????????????????????не могу достать машинкку, она дампится. поэтому я ее просто пока создала
 

@@ -17,12 +17,13 @@ class Game {
 	    Player player;
 
 	    void setWalls();
+      void keyPressed();
+
       int m_controlState;
 
-
   	public:
-      void Keyboard(const char key);
-      void KeyboardUp(const char key);
+      void keyboard(const char key);
+      void keyboardUp(const char key);
     	Game(sf::RenderWindow* window);
     	~Game();
     	void step();
