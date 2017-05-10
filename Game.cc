@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include "Globals.h"
+#include <sstream>
 
 
 FooDraw::FooDraw() {
@@ -52,7 +53,7 @@ sf::Color FooDraw::B2SFColor(const b2Color &color, int alpha) {
 void Game::setWall(float x, float y, float w, float h, float angle){
 	b2BodyDef bodyDef;
 	bodyDef.position.Set(0, 0);
-	m_groundBody = m_world->CreateBody( &bodyDef );
+	m_groundBody = m_world->CreateBody(&bodyDef);
 
 	b2PolygonShape polygonShape;
 	b2FixtureDef fixtureDef;
@@ -61,7 +62,6 @@ void Game::setWall(float x, float y, float w, float h, float angle){
 
    	polygonShape.SetAsBox( w/2/RATIO, h/2/RATIO, b2Vec2((x+w/2)/RATIO, (y+h/2)/RATIO), angle);
 	m_groundBody->CreateFixture(&fixtureDef);
-
 }
 
 void Game::setWalls() {
@@ -93,7 +93,7 @@ void Game::setWalls() {
    	//diagonal
    	b2BodyDef bodyDef;
 	bodyDef.position.Set(0, 0);
-	m_groundBody = m_world->CreateBody( &bodyDef );
+	m_groundBody = m_world->CreateBody(&bodyDef );
 
 	b2PolygonShape polygonShape;
 	b2FixtureDef fixtureDef;
@@ -135,6 +135,15 @@ Game::Game(sf::RenderWindow* window): m_window(window) {
 	m_world = new b2World(b2Vec2(0,0));
 	m_world->SetGravity( b2Vec2(0,0) );
 
+	font.loadFromFile("./Staff/VCR_OSD_MONO.ttf");
+	text.setFont(font); 
+	text.setString(" ");
+	text.setCharacterSize(50);
+	text.setColor(sf::Color::White);
+    text.setStyle(sf::Text::Bold); 
+
+	clock.restart();
+
 	player.setCar(m_world);
 	
 	m_tBackGround.loadFromFile("./Staff/background.png");
@@ -144,12 +153,12 @@ Game::Game(sf::RenderWindow* window): m_window(window) {
 	m_sBackGround.scale(1,1);
 	m_controlState = 0;
 
-   // if (!buffer.loadFromFile("./Staff/lol.ogg"))
+   	//if (!buffer.loadFromFile("./Staff/lol.ogg"))
         ;//обработать
 
     sound.setBuffer(buffer);
 
-  //  if (!music.openFromFile("./Staff/skyrim.ogg"))
+    //if (!music.openFromFile("./Staff/skyrim.ogg"))
         ;//o,hf,fnfnm
     //    music.play();
 
@@ -169,7 +178,6 @@ void Game::keyPressed() {
     		m_controlState &= ~LEFT; 
 	 	}
     }
-    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))  {
         m_controlState |= RIGHT;
     } else {
@@ -177,7 +185,6 @@ void Game::keyPressed() {
     		m_controlState &= ~RIGHT;
 		}
     }
-   
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))  { 
         m_controlState |= UP; 
         sound.play();
@@ -187,7 +194,6 @@ void Game::keyPressed() {
             //sound.stop();
 		}
     }
-    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  { 
         m_controlState |= DOWN;
     } else {
@@ -208,39 +214,41 @@ Player Game::getPlayer() {
 void Game::checkBorders(float x, float y) {
 	sf::View view(sf::FloatRect(0, 450, 1280, 720));
 	m_window->setView(view);
+	sf::Vector2f center = view.getCenter();
+	text.setPosition(center.x + 150, center.y - 250);
 
 	if (x*RATIO <=160 && y*RATIO <= 446) {
 		view.move(0, -446);
 		m_window->setView(view);
-		std::cerr << "1\n";
+		text.move(0, -446);
 		return;
 	}
 
 	if (x*RATIO >= 320 && y*RATIO <= 446) {
  		view.move(320-160,-446);
  		m_window->setView(view);
- 		std::cerr << "2\n";
+ 		text.move(320-160,-446);
  		return;
  	}
 
  	if (y*RATIO >= 1550 && x*RATIO >= 320) {
 		view.move(320-160, 654);
 		m_window->setView(view);
-		std::cerr << "3";
+		text.move(320-160, 654);
 		return;
 	}
 
 	if (x*RATIO <= 160 && y*RATIO >= 1550 ) {
 		view.move(0, 654);
 		m_window->setView(view);
-		std::cerr << "4\n";
+		text.move(0, 654);
 		return;
 	}
 
 	if (y*RATIO <= 446) {
 		view.move(x*RATIO-XPOS,-446);
 		m_window->setView(view);
-		std::cerr << "5\n";
+		text.move(x*RATIO-XPOS,-446);
 		return;
 	}
 
@@ -248,7 +256,7 @@ void Game::checkBorders(float x, float y) {
 	if (x*RATIO >= 320 && y*RATIO<1550) {
 		view.move(320-160,y*RATIO-YPOS);
 		m_window->setView(view);
-		std::cerr << "6\n";
+		text.move(320-160,y*RATIO-YPOS);
 		return;
 	}
 
@@ -256,25 +264,31 @@ void Game::checkBorders(float x, float y) {
 	if (y*RATIO >= 1550) {
 		view.move(x*RATIO-XPOS,654);
 		m_window->setView(view);
-		std::cerr << "7";
+		text.move(x*RATIO-XPOS,654);
 		return;
 	}
 
 	if (x*RATIO <= 160) {
 		view.move(0, y*RATIO-YPOS);
 		m_window->setView(view);
-		std::cerr << "8";
+		text.move(0, y*RATIO-YPOS);
+		
 		return;
 	}
 
-
 	view.move(x*RATIO-XPOS,y*RATIO-YPOS);
+	text.move(x*RATIO-XPOS,y*RATIO-YPOS);
 	m_window->setView(view);
-
-
 }
 
 void Game::step() {
+	sf::Time elapsed1 = clock.getElapsedTime();
+	std::ostringstream playerTime, bestScore;  
+
+    playerTime << elapsed1.asSeconds();  
+    bestScore  << player.getBestScore();
+    text.setString("Time: " + playerTime.str() + '\n' + "Best score: " + bestScore.str());
+
 
 	Car* Car = player.getCar();
 	
@@ -294,6 +308,7 @@ void Game::step() {
 
 	sCar.setRotation(angle*RADTODEG);
 	sCar.setPosition(vec.x*RATIO, vec.y*RATIO);
+	
 
 	m_window->draw(sCar);
 	std::vector<Tire*> tires = Car->getTires();
@@ -306,4 +321,5 @@ void Game::step() {
 		sTire.setPosition(vec.x*RATIO,vec.y*RATIO);
 		m_window->draw(sTire);
 	}
+	m_window->draw(text);
 }

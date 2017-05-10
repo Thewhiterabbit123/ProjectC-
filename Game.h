@@ -38,6 +38,9 @@ class Game {
       sf::SoundBuffer buffer;
       sf::Sound sound;
       sf::Music music;
+      sf::Clock clock;
+      sf::Font font;
+      sf::Text text;
 
 	    Player player;
 

@@ -9,12 +9,15 @@
 class Player {
 	private:
 		Car* m_car;
-		std::vector<int> m_score;
+		std::vector<float> m_score;
+		float m_best_score;
 	public:
+		void getScore();
+		void setScore();
 		void setCar(b2World* m_world);
+		float getBestScore();
 		Car* getCar();
 		~Player();
-	
 };
 
 #endif

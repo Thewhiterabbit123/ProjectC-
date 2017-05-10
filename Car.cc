@@ -23,8 +23,8 @@ Car::Car(b2World* world) {
     b2RevoluteJointDef jointDef;
     jointDef.bodyA = m_body;
     jointDef.enableLimit = true;
-    jointDef.lowerAngle = 0;
-    jointDef.upperAngle = 0;
+    jointDef.lowerAngle  = 0;
+    jointDef.upperAngle  = 0;
     jointDef.localAnchorB.SetZero();//center of tire
 
     float maxForwardSpeed = 5;
@@ -36,36 +36,43 @@ Car::Car(b2World* world) {
 
     //back left tire
     Tire* tire = new Tire(world);
-    tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
+    tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, 
+                             backTireMaxDriveForce, backTireMaxLateralImpulse);
     jointDef.bodyB = tire->getBody();
     b2Vec2 vec= m_body->GetPosition();
-    std::cout << vec.x*30 << " " << vec.y*30 << std::endl;
-    jointDef.localAnchorA.Set( -CAR_WIDTH/2/RATIO-TIRE_WIDTH/2/RATIO-INTERVAL/RATIO, CAR_HEIGHT/4/RATIO+INTERVAL/RATIO );
+    jointDef.localAnchorA.Set(-CAR_WIDTH/2/RATIO-TIRE_WIDTH/2/RATIO-INTERVAL/RATIO, 
+                               CAR_HEIGHT/4/RATIO+INTERVAL/RATIO );
     world->CreateJoint( &jointDef );
     m_tires.push_back(tire);
 
     //back right tire
     tire = new Tire(world);
-    tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, backTireMaxDriveForce, backTireMaxLateralImpulse);
+    tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, 
+                             backTireMaxDriveForce, backTireMaxLateralImpulse);
     jointDef.bodyB = tire->getBody();
-    jointDef.localAnchorA.Set( CAR_WIDTH/2/RATIO-TIRE_WIDTH/2/RATIO+(INTERVAL+6)/RATIO, CAR_HEIGHT/4/RATIO+INTERVAL/RATIO );
+    jointDef.localAnchorA.Set(CAR_WIDTH/2/RATIO-TIRE_WIDTH/2/RATIO+(INTERVAL+6)/RATIO, 
+                              CAR_HEIGHT/4/RATIO+INTERVAL/RATIO );
     world->CreateJoint( &jointDef );
     m_tires.push_back(tire);
 
     //front left tire
     tire = new Tire(world);
-    tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
+    tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, 
+                             frontTireMaxDriveForce, frontTireMaxLateralImpulse);
     jointDef.bodyB = tire->getBody();
-    jointDef.localAnchorA.Set( -CAR_WIDTH/2/RATIO-TIRE_WIDTH/2/RATIO-INTERVAL/RATIO, -CAR_HEIGHT/4/RATIO-INTERVAL/RATIO );
+    jointDef.localAnchorA.Set(-CAR_WIDTH/2/RATIO-TIRE_WIDTH/2/RATIO-INTERVAL/RATIO, 
+                              -CAR_HEIGHT/4/RATIO-INTERVAL/RATIO );
     flJoint = (b2RevoluteJoint*)world->CreateJoint( &jointDef );
     m_tires.push_back(tire);
 
     //front right tire
     tire = new Tire(world);
-    tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, frontTireMaxDriveForce, frontTireMaxLateralImpulse);
+    tire->setCharacteristics(maxForwardSpeed, maxBackwardSpeed, 
+                             frontTireMaxDriveForce, frontTireMaxLateralImpulse);
     jointDef.bodyB = tire->getBody();
-    jointDef.localAnchorA.Set( CAR_WIDTH/2/RATIO-TIRE_WIDTH/2/RATIO+(INTERVAL+6)/RATIO, -CAR_HEIGHT/4/RATIO-INTERVAL/RATIO );
-    frJoint = (b2RevoluteJoint*)world->CreateJoint( &jointDef );
+    jointDef.localAnchorA.Set(CAR_WIDTH/2/RATIO-TIRE_WIDTH/2/RATIO+(INTERVAL+6)/RATIO, 
+                             -CAR_HEIGHT/4/RATIO-INTERVAL/RATIO );
+    frJoint = (b2RevoluteJoint*)world->CreateJoint(&jointDef);
     m_tires.push_back(tire);
 }
 
@@ -85,17 +92,17 @@ void Car::update(int controlState) {
     float turnSpeedPerSec = 160 * DEGTORAD;//from lock to lock in 0.5 sec
     float turnPerTimeStep = turnSpeedPerSec / 60.0f;
     float desiredAngle = 0;
-    switch ( controlState & (LEFT | RIGHT) ) {
-        case LEFT:  desiredAngle = lockAngle;  break;
+    switch (controlState & (LEFT | RIGHT)) {
+        case LEFT:  desiredAngle =  lockAngle; break;
         case RIGHT: desiredAngle = -lockAngle; break;
-        default: ;//nothing
+        default: ;
     }
-    float angleNow = flJoint->GetJointAngle();
+    float angleNow    = flJoint->GetJointAngle();
     float angleToTurn = desiredAngle - angleNow;
-    angleToTurn = b2Clamp( angleToTurn, -turnPerTimeStep, turnPerTimeStep );
-    float newAngle = angleNow + angleToTurn;
-    flJoint->SetLimits( newAngle, newAngle );
-    frJoint->SetLimits( newAngle, newAngle );
+    angleToTurn       = b2Clamp(angleToTurn, -turnPerTimeStep, turnPerTimeStep);
+    float newAngle    = angleNow + angleToTurn;
+    flJoint->SetLimits(newAngle, newAngle);
+    frJoint->SetLimits(newAngle, newAngle);
 }
 
 sf::Sprite Car::getSprite() {
