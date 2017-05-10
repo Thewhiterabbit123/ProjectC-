@@ -62,7 +62,7 @@ void Tire::updateDrive(int controlState) {
         default: return;//do nothing
     }
     
-    b2Vec2 currentForwardNormal = m_body->GetWorldVector( b2Vec2(0,1) );
+    b2Vec2 currentForwardNormal = m_body->GetWorldVector( b2Vec2(0, -1) );
     float currentSpeed = b2Dot( getForwardVelocity(), currentForwardNormal );
     float force = 0;
     if (desiredSpeed > currentSpeed) {

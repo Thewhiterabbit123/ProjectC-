@@ -1,12 +1,13 @@
 #include "Game.h"
- #include <sstream>
+#include "Globals.h"
+#include <sstream>
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 #include <iostream>
 
 int main () {
-	sf::RenderWindow window(sf::VideoMode(1366, 768), "RACE!");
-	window.setFramerateLimit(20);
+	sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "RACE!");
+	window.setFramerateLimit(60);
 	Game* game = new Game(&window);
 
     sf::Clock clock;

@@ -27,12 +27,12 @@ Car::Car(b2World* world) {
     jointDef.upperAngle = 0;
     jointDef.localAnchorB.SetZero();//center of tire
 
-    float maxForwardSpeed = 250*CAR_WIDTH/RATIO;
-    float maxBackwardSpeed = -40*CAR_WIDTH/RATIO;
-    float backTireMaxDriveForce = 300*CAR_WIDTH/RATIO;
-    float frontTireMaxDriveForce = 400*CAR_WIDTH/RATIO;
-    float backTireMaxLateralImpulse = 7.5*CAR_WIDTH/RATIO;
-    float frontTireMaxLateralImpulse = 7.5*CAR_WIDTH/RATIO;
+    float maxForwardSpeed = 5;
+    float maxBackwardSpeed = -2.2;
+    float backTireMaxDriveForce = 5;
+    float frontTireMaxDriveForce = 5;
+    float backTireMaxLateralImpulse = 0.2;
+    float frontTireMaxLateralImpulse = 0.2;
 
     //back left tire
     Tire* tire = new Tire(world);

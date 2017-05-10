@@ -13,6 +13,9 @@
 #define RADTODEG 57.295779513082320876f
 #define DEGTORAD 0.0174532925199432957f
 
+#define WINDOW_W 1366
+#define WINDOW_H 768
+
 #define CAR_WIDTH 23
 #define CAR_HEIGHT 39
 
@@ -21,9 +24,14 @@
 
 #define INTERVAL 2
 
-#define XPOS 100
-#define YPOS 100
+#define XPOS 160
+#define YPOS 896
 
+#define MID(X1, X2) (((X1)+(X2))/2)
+
+#include <cmath>
+
+#define DIST(X1, Y1, X2, Y2) sqrt((((X2)-(X1))*((X2)-(X1))+((Y2)-(Y1))*((Y2)-(Y1))))
 
 enum {
     LEFT     = 0x1,
