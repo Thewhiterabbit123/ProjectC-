@@ -163,36 +163,36 @@ Game::Game(sf::RenderWindow* window): m_window(window) {
 void Game::keyPressed() {
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        this->keyboard('A');
+        m_controlState |= LEFT;
     } else {
 		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && (m_controlState & LEFT)) {
-    		this->keyboardUp('A');
+    		m_controlState &= ~LEFT; 
 	 	}
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))  {
-        this->keyboard('D');
+        m_controlState |= RIGHT;
     } else {
 		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && (m_controlState & RIGHT))  {
-    		this->keyboardUp('D');
+    		m_controlState &= ~RIGHT;
 		}
     }
    
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))  { 
-        this->keyboard('W'); 
+        m_controlState |= UP; 
         sound.play();
     } else {
 		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && (m_controlState & UP))  { 
-    		this->keyboardUp('W'); 
+    		m_controlState &= ~UP; 
             //sound.stop();
 		}
     }
     
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  { 
-        this->keyboard('S');
+        m_controlState |= DOWN;
     } else {
 		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && (m_controlState & DOWN))  { 
-    		this->keyboardUp('S');
+    		m_controlState &= ~DOWN; 
 		}
     }    
 }
@@ -283,9 +283,6 @@ void Game::step() {
 	
 	b2Vec2 vec = Car->getBody()->GetPosition();
 	float angle = Car->getBody()->GetAngle();
- 
-
- 	//std::cout << vec.x*RATIO << " " << vec.y*RATIO << std::endl;
 
  	checkBorders(vec.x, vec.y); //проверяет на выход за границы карты (белые полосы по краям убирает)
 
@@ -309,22 +306,4 @@ void Game::step() {
 		sTire.setPosition(vec.x*RATIO,vec.y*RATIO);
 		m_window->draw(sTire);
 	}
-}
-
-void Game::keyboard(const char key) {
-    switch (key) {
-        case 'A' : m_controlState |= LEFT; break;
-        case 'D' : m_controlState |= RIGHT; break;
-        case 'W' : m_controlState |= UP; break;
-        case 'S' : m_controlState |= DOWN; break;
-    }
-}
-
-void Game::keyboardUp(const char key) {
-    switch (key) {
-        case 'A' : m_controlState &= ~LEFT; break;
-        case 'D' : m_controlState &= ~RIGHT; break;
-        case 'W' : m_controlState &= ~UP; break;
-        case 'S' : m_controlState &= ~DOWN; break;
-    }
 }

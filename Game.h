@@ -49,8 +49,6 @@ class Game {
       int m_controlState;
 
   	public:
-      void keyboard(const char key);
-      void keyboardUp(const char key);
     	Game(sf::RenderWindow* window);
     	void step();
     	b2World* getWorld();
