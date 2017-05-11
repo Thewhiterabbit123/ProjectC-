@@ -27,12 +27,12 @@ Car::Car(b2World* world) {
     jointDef.upperAngle  = 0;
     jointDef.localAnchorB.SetZero();//center of tire
 
-    float maxForwardSpeed = 5;
+    float maxForwardSpeed = 100;
     float maxBackwardSpeed = -2.2;
-    float backTireMaxDriveForce = 5;
+    float backTireMaxDriveForce = 20;
     float frontTireMaxDriveForce = 5;
-    float backTireMaxLateralImpulse = 0.2;
-    float frontTireMaxLateralImpulse = 0.2;
+    float backTireMaxLateralImpulse = 0.1;
+    float frontTireMaxLateralImpulse = 0.4;
 
     //back left tire
     Tire* tire = new Tire(world);
@@ -93,12 +93,12 @@ void Car::update(int controlState) {
     float turnPerTimeStep = turnSpeedPerSec / 60.0f;
     float desiredAngle = 0;
     switch (controlState & (LEFT | RIGHT)) {
-        case LEFT:  desiredAngle =  lockAngle; break;
-        case RIGHT: desiredAngle = -lockAngle; break;
+        case LEFT:  desiredAngle =  -lockAngle; break;
+        case RIGHT: desiredAngle = +lockAngle; break;
         default: ;
     }
     float angleNow    = flJoint->GetJointAngle();
-    float angleToTurn = desiredAngle - angleNow;
+    float angleToTurn = (desiredAngle - angleNow);
     angleToTurn       = b2Clamp(angleToTurn, -turnPerTimeStep, turnPerTimeStep);
     float newAngle    = angleNow + angleToTurn;
     flJoint->SetLimits(newAngle, newAngle);

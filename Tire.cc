@@ -61,6 +61,7 @@ void Tire::updateDrive(int controlState) {
         case DOWN: desiredSpeed = m_maxBackwardSpeed; break;
         default: return;//do nothing
     }
+    updateTurn(controlState);
     
     b2Vec2 currentForwardNormal = m_body->GetWorldVector( b2Vec2(0, -1) );
     float currentSpeed = b2Dot( getForwardVelocity(), currentForwardNormal );
@@ -80,8 +81,8 @@ void Tire::updateDrive(int controlState) {
 void Tire::updateTurn(int controlState) {
     float desiredTorque = 0;
     switch ( controlState & (LEFT|RIGHT) ) {
-        case LEFT:  desiredTorque = -15;  break;
-        case RIGHT: desiredTorque =  15; break;
+        case LEFT:  desiredTorque = -0.5;  break;
+        case RIGHT: desiredTorque =  0.5; break;
         default: ;//nothing
     }
     m_body->ApplyTorque( desiredTorque, 1 );

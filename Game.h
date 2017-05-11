@@ -44,7 +44,7 @@ class Game {
 
 	    Player player;
 
-      void setWall(float x, float y, float w, float h, float angle);
+      void setWall(float x, float y, float w, float h, bool sensor, int number = -1);
 	    void setWalls();
       void keyPressed();
       void checkBorders(float x, float y);

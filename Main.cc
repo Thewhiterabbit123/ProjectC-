@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 #include <iostream>
-#include "screen_manager.h"
+//#include "screen_manager.h"
 
 int main () {
 	sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "RACE!");
