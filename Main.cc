@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 #include <iostream>
+#include <SFML/Audio.hpp>
 //#include "screen_manager.h"
 
 int main () {
@@ -10,22 +11,25 @@ int main () {
 	window.setFramerateLimit(60);
 	Game* game = new Game(&window);
 
+
 	while (window.isOpen()) {
 
-        sf::Event Event;
-     
+        sf::Event event;
 
-        while (window.pollEvent(Event)) {
+        while (window.pollEvent(event)) {
 
-            if (Event.type == sf::Event::Closed) {
+            if (event.type == sf::Event::Closed) {
                 window.close();
             }
 
         }
+
         game->getWorld()->Step(1/60.f, 8, 3);
         game->step();
+
         window.display();
         window.clear(sf::Color::White);
     }
+    delete game;
 
 }

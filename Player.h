@@ -11,10 +11,16 @@ class Player {
 		Car* m_car;
 		std::vector<float> m_score;
 		float m_best_score;
+		int round;
 	public:
 		void  getScore();
 		void  setScore();
+
+		int getRound();
+	
 		void  setCar(b2World* m_world);
+		void pushBack(float score);
+		void playerUpdate();
 		float getBestScore();
 		Car*  getCar();
 		~Player();

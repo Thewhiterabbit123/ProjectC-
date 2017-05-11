@@ -6,11 +6,20 @@
 #include <Box2D/Box2D.h>
 #include <SFML/Audio.hpp>
 
+class MyContactListener: public b2ContactListener {
+public:
+    void handleContact(b2Contact* contact, bool began);
+    void car_vs_groundArea(b2Fixture* carFixture, b2Fixture* groundFixture, bool began);
+    void BeginContact (b2Contact* contact) { handleContact(contact, true); }
+    void EndContact (b2Contact* contact) { handleContact(contact, false); }
+};
+
 class Game {
   	private:
   		b2Body*  m_groundBody;
 	  	b2World* m_world;
         Player   player;
+        MyContactListener* m_contactListener;
 
 
 	    sf::RenderWindow* m_window;
@@ -35,6 +44,7 @@ class Game {
     	void step();
     	b2World* getWorld();
     	Player getPlayer();
+
 };
 
 #endif

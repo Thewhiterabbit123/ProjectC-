@@ -10,6 +10,8 @@
 class Car {
 	private:
 		int control_state;
+		int checkpoint;
+		bool round;
 
 		b2Body* m_body;
         std::vector<Tire*> m_tires;
@@ -17,10 +19,27 @@ class Car {
 
         sf::Texture m_tCar;
         sf::Sprite  m_sCar;
+        
 	public:
 		Car(b2World* world);
 		~Car();
 		b2Body* getBody();
+		
+		void setCheckpoint(int n) {
+			checkpoint = n;
+		}
+
+		void setRound(bool round) {
+			this->round = round;
+		}
+
+		int getCheckpoint() {
+			return checkpoint;
+		}
+
+		int getRound() {
+			return round;
+		}
 		
 		void update(int controlState);
 		std::vector<Tire*> getTires();

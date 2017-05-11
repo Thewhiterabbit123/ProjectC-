@@ -5,7 +5,7 @@
 void Player::getScore() {
 	std::ifstream file;
 	file.open("./results/result.txt");
-	if(!file.is_open()) {
+	if(!file.is_open()) { 
 		//проверить
 	}
 	float score = 0;
@@ -20,15 +20,38 @@ void Player::getScore() {
 	file.close();
 }
 
+int Player::getRound() {
+	return round;
+}
+
 float Player::getBestScore() {
 	return m_best_score;
 }
 
-void Player::setScore() {
-
+void Player::pushBack(float score) {
+	m_score.push_back(score);
 }
 
+void Player::setScore() {
+	std::ofstream file;
+	file.open("./results/result.txt");
+	if(!file.is_open()) { 
+		//проверить
+	}
+	int sum = 0;
+	for (int i = 0; i < ROUND_NUMBER; i++) {
+		sum += m_score[i];
+	}
+	file << sum;
+	file.close();
+}
 
+void Player::playerUpdate() {
+	Car* car = getCar();
+	if (car->getRound() == true) {
+		this->round++;
+	}
+}
 
 void Player::setCar(b2World* m_world) {
 	m_car = new Car(m_world);

@@ -27,6 +27,8 @@
 #define XPOS 160
 #define YPOS 896
 
+#define ROUND_NUMBER 1
+
 #define MID(X1, X2) (((X1)+(X2))/2)
 
 #include <cmath>
@@ -41,7 +43,7 @@ enum {
 };
 
 enum fixtureUserDataType {
-    FUD_CAR_TIRE,
+    FUD_CAR,
     FUD_GROUND_AREA
 };
 
@@ -54,21 +56,19 @@ class FixtureUserData {
         virtual ~FixtureUserData() {}
 };
 
-class CarTireFUD : public FixtureUserData {
+class CarFUD : public FixtureUserData {
     public:
-        CarTireFUD() : FixtureUserData(FUD_CAR_TIRE) {}
+        CarFUD() : FixtureUserData(FUD_CAR) {}
 };
 
 
 class GroundAreaFUD : public FixtureUserData {
-    public:
-        float frictionModifier;
-        bool outOfCourse;
+    private:
         int number;
-
-        GroundAreaFUD(float fm, bool ooc, int number) : FixtureUserData(FUD_GROUND_AREA), number(number) {
-            frictionModifier = fm;
-            outOfCourse = ooc;
+    public:
+        GroundAreaFUD(int number) : FixtureUserData(FUD_GROUND_AREA), number(number) {}
+        int getNumber() {
+            return number;
         }
 };
 

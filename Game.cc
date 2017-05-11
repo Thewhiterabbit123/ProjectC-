@@ -3,6 +3,43 @@
 #include "Globals.h"
 #include <sstream>
 
+void MyContactListener::handleContact(b2Contact* contact, bool began) {
+    b2Fixture* a = contact->GetFixtureA();
+    b2Fixture* b = contact->GetFixtureB();
+    FixtureUserData* fudA = (FixtureUserData*)a->GetUserData();
+    FixtureUserData* fudB = (FixtureUserData*)b->GetUserData();
+
+    if ( !fudA || !fudB )
+        return;
+
+    if ( fudA->getType() == FUD_CAR || fudB->getType() == FUD_GROUND_AREA )
+        car_vs_groundArea(a, b, began);
+    else if ( fudA->getType() == FUD_GROUND_AREA || fudB->getType() == FUD_CAR )
+        car_vs_groundArea(b, a, began);
+}
+
+void MyContactListener::car_vs_groundArea(b2Fixture* carFixture, b2Fixture* groundAreaFixture, bool began) {
+    Car* car = (Car*)carFixture->GetBody()->GetUserData();
+    GroundAreaFUD* gaFud = ( GroundAreaFUD* )groundAreaFixture->GetUserData();
+    int number = gaFud->getNumber();
+    int carCheckpoint = car->getCheckpoint();
+    if ( began ) {
+        if (number == 1) {
+            car->setCheckpoint(number);
+            std::cout << "***CHECKPOINT = " << car->getCheckpoint() << std::endl;
+            car->setRound(false);
+        }
+        if (number - 1 == carCheckpoint) {
+            car->setCheckpoint(number);
+            if (number != 1)
+            	std::cout << "***CHECKPOINT = " << car->getCheckpoint() << std::endl;
+        }
+        if ((number == 0) && (carCheckpoint == 4)) {
+            car->setRound(true);
+            std::cout << "***ROUND = " << car->getRound() << std::endl;
+        }
+    }
+}
 
 void Game::setWall(float x, float y, float w, float h, bool sensor, int number){
 	b2BodyDef bodyDef;
@@ -20,7 +57,7 @@ void Game::setWall(float x, float y, float w, float h, bool sensor, int number){
    		m_groundBody->CreateFixture(&fixtureDef);
    	else {
    		b2Fixture* groundAreaFixture = m_groundBody->CreateFixture(&fixtureDef);
-    	groundAreaFixture->SetUserData( new GroundAreaFUD( 0.5f, false,number ) );
+    	groundAreaFixture->SetUserData( new GroundAreaFUD( number ) );
    	}
 	
 }
@@ -53,7 +90,6 @@ void Game::setWalls() {
 
    	setWall(107, 878, 108, 45, true, 0); //старт
    	//чекпоинты
-   	setWall(107,  878, 108,  45, true, 0); 
    	setWall(510,  160,  45, 100, true, 1); 
    	setWall(640,  745,  96,  46, true, 2); 
    	setWall(806, 1246,  45,  98, true, 3); 
@@ -118,6 +154,8 @@ void Game::setWalls() {
 Game::Game(sf::RenderWindow* window): m_window(window) {
 	m_world = new b2World(b2Vec2(0,0));
 	m_world->SetGravity( b2Vec2(0,0) );
+	m_contactListener = new MyContactListener();
+	m_world->SetContactListener(m_contactListener);
 
 	font.loadFromFile("./Staff/VCR_OSD_MONO.ttf");
 	text.setFont(font); 
@@ -137,14 +175,12 @@ Game::Game(sf::RenderWindow* window): m_window(window) {
 	m_sBackGround.scale(1,1);
 	m_controlState = 0;
 
-   	//if (!buffer.loadFromFile("./Staff/lol.ogg"))
-        ;//обработать
+    buffer.loadFromFile("./Staff/accleration.ogg");
 
     sound.setBuffer(buffer);
 
-    //if (!music.openFromFile("./Staff/skyrim.ogg"))
-        ;//o,hf,fnfnm
-    //    music.play();
+    music.openFromFile("./Staff/lol.ogg");
+    music.play();
 
     setWalls();
 
@@ -152,6 +188,7 @@ Game::Game(sf::RenderWindow* window): m_window(window) {
 
 void Game::keyPressed() {
 
+	//bool play = false;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
         m_controlState |= LEFT;
     } else {
@@ -168,11 +205,11 @@ void Game::keyPressed() {
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))  { 
         m_controlState |= UP; 
-        sound.play();
+       	//play = true;
     } else {
 		if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && (m_controlState & UP))  { 
     		m_controlState &= ~UP; 
-            //sound.stop();
+           // play = false;
 		}
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  { 
@@ -182,6 +219,9 @@ void Game::keyPressed() {
     		m_controlState &= ~DOWN; 
 		}
     }    
+
+    //if(play)
+    	//sound.play();
 }
 
 b2World* Game::getWorld() {
@@ -263,8 +303,34 @@ void Game::checkBorders(float x, float y) {
 }
 
 void Game::step() {
+
 	sf::Time elapsed1 = clock.getElapsedTime();
 	std::ostringstream playerTime, bestScore;  
+
+	player.playerUpdate();
+	if (player.getRound() == 1) {
+		player.pushBack(elapsed1.asSeconds());
+		sf::Text end;
+		end.setFont(font); 
+		end.setString(" ");
+		end.setCharacterSize(200);
+		end.setColor(sf::Color::White);
+    	end.setStyle(sf::Text::Bold); 
+		//std::ostringstream end, time;  
+    	//end  << player.getBestScore(); 
+    	//time << 
+    	end.setString("END! Your best score: "); //+ end.str());
+    	//m_world->Step(0, 8, 3);
+    	end.setPosition( 150, 250);
+
+    	m_window->draw(end);
+
+    	clock.restart();
+    	sf::Time elapsed2 = clock.getElapsedTime();
+    	std::cout << elapsed2.asSeconds();
+    	//while (elapsed2.asSeconds() < 10) 
+    		//std::cout << elapsed2.asSeconds() << "\n" ;
+	}
 
     playerTime << elapsed1.asSeconds();  
     bestScore  << player.getBestScore();
@@ -272,6 +338,11 @@ void Game::step() {
 
 
 	Car* Car = player.getCar();
+
+	/*if ((Car->getBody()->GetLinearVelocity().x) > 0 || (Car->getBody()->GetLinearVelocity().y) > 0) {
+		sound.play();
+		std::cerr << "DDD\n";
+	}*/
 	
 	sf::Sprite sCar = Car->getSprite();
 	sCar.setOrigin(CAR_WIDTH/2, CAR_HEIGHT/2);
@@ -282,7 +353,6 @@ void Game::step() {
  	checkBorders(vec.x, vec.y); //проверяет на выход за границы карты (белые полосы по краям убирает)
 
 	m_window->draw(m_sBackGround);
-	m_world->DrawDebugData();
 
 	keyPressed();
 	Car->update(m_controlState);

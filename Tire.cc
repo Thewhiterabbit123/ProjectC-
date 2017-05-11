@@ -9,7 +9,6 @@ Tire::Tire(b2World* world) {
     b2PolygonShape polygonShape;
     polygonShape.SetAsBox( TIRE_WIDTH/2/RATIO, TIRE_HEIGHT/2/RATIO);
     b2Fixture* fixture = m_body->CreateFixture(&polygonShape, 1);//shape, density
-    fixture->SetUserData( new CarTireFUD() );
 
     m_currentTraction = 1;
 

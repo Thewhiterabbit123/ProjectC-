@@ -1,6 +1,6 @@
 #include "Car.h"
 
-Car::Car(b2World* world) {
+Car::Car(b2World* world): checkpoint(0), round(false) {
 	//create car body
     b2BodyDef bodyDef;
     bodyDef.position.Set(XPOS/RATIO, YPOS/RATIO);
@@ -18,6 +18,8 @@ Car::Car(b2World* world) {
     //polygonShape.Set( vertices, 4);
     polygonShape.SetAsBox(CAR_WIDTH/2/RATIO, CAR_HEIGHT/2/RATIO);//, b2Vec2(0, -CAR_HEIGHT/2/RATIO), 0);
     b2Fixture* fixture = m_body->CreateFixture(&polygonShape, 0.1f);//shape, density
+    fixture->SetUserData( new CarFUD() );
+    m_body->SetUserData(this);
 
     //prepare common joint parameters
     b2RevoluteJointDef jointDef;
