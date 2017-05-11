@@ -73,37 +73,37 @@ void Game::setWall(float x, float y, float w, float h, bool sensor, int number){
 
 void Game::setWalls() {
 
-   	setWall(88,232,32,1368,false);
-   	setWall(204,298,33,1261,false);
+   	setWall(88,  232, 32, 1368, false);
+   	setWall(204, 298, 33, 1261, false);
+ 
+   	setWall(192, 154, 461, 13, false);
+   	setWall(253, 259, 370, 16, false);
+ 
+   	setWall(629, 288, 12, 965, false);
+   	setWall(735, 248, 11, 968, false);
 
-   	setWall(192,154,461,13,false);
-   	setWall(253,259,370,16,false);
+   	setWall(738, 1343, 193, 16,  false);
+   	setWall(768, 1235, 134, 13,  false);
 
-   	setWall(629,288,12,965,false);
-   	setWall(735,248,11,968,false);
+   	setWall(902,  841,  18, 399, false);
+   	setWall(1014, 726, 215,  18, false);
 
-   	setWall(738,1343,193,16,false);
-   	setWall(768,1235,134,13,false);
+   	setWall(1005, 869,  30, 394, false);
+   	setWall(1055, 833, 145,  15, false);
 
-   	setWall(902,841,18,399,false);
-   	setWall(1014,726,215,18,false);
+   	setWall(1323, 846, 31, 680, false);
+   	setWall(1232, 875,  6, 609, false);
 
-   	setWall(1005,869,30,394,false);
-   	setWall(1055,833,145,15,false);
+   	setWall(198, 1700, 949, 27, false);
+   	setWall(257, 1569, 859, 35, false);
 
-   	setWall(1323,846,31,680,false);
-   	setWall(1232,875,6,609,false);
-
-   	setWall(198,1700,949,27,false);
-   	setWall(257,1569,859,35,false);
-
-   	setWall(107,878,108,45,true,0); //старт
+   	setWall(107, 878, 108, 45, true, 0); //старт
    	//чекпоинты
-   	setWall(107,878,108,45,true,0); 
-   	setWall(510,160,45,100,true,1); 
-   	setWall(640,745,96,46,true,2); 
-   	setWall(806,1246,45,98,true,3); 
-   	setWall(677,1598,45,105,true,4); 
+   	setWall(107,  878, 108,  45, true, 0); 
+   	setWall(510,  160,  45, 100, true, 1); 
+   	setWall(640,  745,  96,  46, true, 2); 
+   	setWall(806, 1246,  45,  98, true, 3); 
+   	setWall(677, 1598,  45, 105, true, 4); 
 
    	//диагональные стены
    	b2BodyDef bodyDef;
@@ -114,8 +114,6 @@ void Game::setWalls() {
 	b2FixtureDef fixtureDef;
   	fixtureDef.shape = &polygonShape;
    	fixtureDef.isSensor = false;
-
-   	std::cout << "****" << DIST(88,232,192,154) << "*****\n" ;
 
    	polygonShape.SetAsBox( DIST(88,232,192,154)/2/RATIO, 5/RATIO,  b2Vec2((MID(88,192)+20)/RATIO, MID(232,154)/RATIO), -45*DEGTORAD);
 	m_groundBody->CreateFixture(&fixtureDef);

@@ -12,11 +12,11 @@ class Player {
 		std::vector<float> m_score;
 		float m_best_score;
 	public:
-		void getScore();
-		void setScore();
-		void setCar(b2World* m_world);
+		void  getScore();
+		void  setScore();
+		void  setCar(b2World* m_world);
 		float getBestScore();
-		Car* getCar();
+		Car*  getCar();
 		~Player();
 };
 

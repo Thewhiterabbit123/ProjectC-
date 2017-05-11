@@ -30,26 +30,26 @@ class Game {
   	private:
   		b2Body*  m_groundBody;
 	  	b2World* m_world;
-      FooDraw m_debugDraw;
+        FooDraw  m_debugDraw;
+        Player   player;
+
 
 	    sf::RenderWindow* m_window;
-	    sf::Texture m_tBackGround;
-	    sf::Sprite m_sBackGround;
-      sf::SoundBuffer buffer;
-      sf::Sound sound;
-      sf::Music music;
-      sf::Clock clock;
-      sf::Font font;
-      sf::Text text;
+	    sf::Texture       m_tBackGround;
+	    sf::Sprite        m_sBackGround;
+        sf::SoundBuffer   buffer;
+      	sf::Sound         sound;
+     	sf::Music         music;
+      	sf::Clock         clock;
+      	sf::Font          font;
+      	sf::Text          text;
 
-	    Player player;
-
-      void setWall(float x, float y, float w, float h, bool sensor, int number = -1);
+     	void setWall(float x, float y, float w, float h, bool sensor, int number = -1);
 	    void setWalls();
-      void keyPressed();
-      void checkBorders(float x, float y);
+     	void keyPressed();
+      	void checkBorders(float x, float y);
 
-      int m_controlState;
+      	int  m_controlState;
 
   	public:
     	Game(sf::RenderWindow* window);
