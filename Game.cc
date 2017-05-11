@@ -4,52 +4,6 @@
 #include <sstream>
 
 
-FooDraw::FooDraw() {
-
-}
-
-FooDraw::~FooDraw() {}
-
-void FooDraw::setWindow (sf::RenderWindow *window) {
-	this->window = window;
-	std::cout << "SET\n";
-}
-
-void FooDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color) {
-	sf::ConvexShape polygon;
-	polygon.setPointCount(vertexCount);
-	for (int32 i=0; i<vertexCount; i++) {
-		b2Vec2 vertex = vertices[i];
-		polygon.setPoint(i, sf::Vector2f(vertex.x*RATIO, vertex.y*RATIO));
-	}
-	//polygon.SetOutlineWidth(1.0f);
-	//polygon.EnableFill(false);
-	this->window->draw(polygon);
-	std::cout << "DrawPolygon";
-
-}
-
-
-void FooDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color) {
-	sf::ConvexShape polygon;
-	polygon.setPointCount(vertexCount);
-	for (int32 i=0; i<vertexCount; i++) {
-		b2Vec2 vertex = vertices[i];
-		polygon.setPoint(i, sf::Vector2f(vertex.x*RATIO, vertex.y*RATIO));
-	}
-
-	//polygon.SetOutlineWidth(1.0f);
-	//polygon.EnableFill(false);
-	this->window->draw(polygon);
-	//std::cout << "DrawPolygon";
-
-}
-
-sf::Color FooDraw::B2SFColor(const b2Color &color, int alpha) {
-	sf::Color result((sf::Uint8)(color.r*255), (sf::Uint8)(color.g*255), (sf::Uint8)(color.b*255), (sf::Uint8) alpha);
-	return result;
-}
-
 void Game::setWall(float x, float y, float w, float h, bool sensor, int number){
 	b2BodyDef bodyDef;
 	bodyDef.position.Set(0, 0);
@@ -159,19 +113,6 @@ void Game::setWalls() {
 
 	polygonShape.SetAsBox( (DIST(204,1559,257,1569)+6)/2/RATIO, 5/RATIO,  b2Vec2((MID(204,257)+2)/RATIO, (MID(1559,1569)+16)/RATIO), 38*DEGTORAD);
 	m_groundBody->CreateFixture(&fixtureDef);
-   //	setWall(88,170,130,2,-45*DEGTORAD);
-   //	setWall(257,1569,859,35);
-
-
-
-	/*polygonShape.SetAsBox( 5.0f/RATIO, 150.0f/RATIO, b2Vec2(130.0f/RATIO,400.0f/RATIO), 0 );
-	m_groundBody->CreateFixture(&fixtureDef);
-
-	polygonShape.SetAsBox( 2000/RATIO, 10.0f/RATIO, b2Vec2(350.0f/RATIO,600.0f/RATIO), 0 );
-	m_groundBody->CreateFixture(&fixtureDef);
-
-	polygonShape.SetAsBox( 2000/RATIO, 100.0f/RATIO );
-	m_groundBody->CreateFixture(&fixtureDef);*/
 }
 
 Game::Game(sf::RenderWindow* window): m_window(window) {
@@ -192,7 +133,7 @@ Game::Game(sf::RenderWindow* window): m_window(window) {
 	m_tBackGround.loadFromFile("./Staff/background.png");
 	m_tBackGround.setSmooth(true);
 	m_sBackGround.setTexture(m_tBackGround);
-	//m_sBackGround.setTextureRect( IntRect())
+
 	m_sBackGround.scale(1,1);
 	m_controlState = 0;
 
@@ -205,9 +146,6 @@ Game::Game(sf::RenderWindow* window): m_window(window) {
         ;//o,hf,fnfnm
     //    music.play();
 
-    m_debugDraw.SetFlags(b2Draw::e_shapeBit);
-    m_debugDraw.setWindow(m_window);
-    m_world->SetDebugDraw(&m_debugDraw);
     setWalls();
 
 }
