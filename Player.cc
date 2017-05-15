@@ -29,7 +29,7 @@ float Player::getBestScore() {
 }
 
 void Player::pushBack(float score) {
-	m_score.push_back(score);
+	m_score[0] = score;
 }
 
 void Player::setScore() {

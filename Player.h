@@ -19,8 +19,8 @@ class Player {
 		int getRound();
 	
 		void  setCar(b2World* m_world);
-		void pushBack(float score);
-		void playerUpdate();
+		void  pushBack(float score);
+		void  playerUpdate();
 		float getBestScore();
 		Car*  getCar();
 		~Player();

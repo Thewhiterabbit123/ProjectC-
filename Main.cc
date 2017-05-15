@@ -10,7 +10,7 @@ int main () {
 	sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "RACE!");
 	window.setFramerateLimit(60);
 	Game* game = new Game(&window);
-
+  
 
 	while (window.isOpen()) {
 
@@ -23,6 +23,7 @@ int main () {
             }
 
         }
+
 
         game->getWorld()->Step(1/60.f, 8, 3);
         game->step();

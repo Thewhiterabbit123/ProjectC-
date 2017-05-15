@@ -304,33 +304,13 @@ void Game::checkBorders(float x, float y) {
 
 void Game::step() {
 
+
+
 	sf::Time elapsed1 = clock.getElapsedTime();
 	std::ostringstream playerTime, bestScore;  
 
 	player.playerUpdate();
-	if (player.getRound() == 1) {
-		player.pushBack(elapsed1.asSeconds());
-		sf::Text end;
-		end.setFont(font); 
-		end.setString(" ");
-		end.setCharacterSize(200);
-		end.setColor(sf::Color::White);
-    	end.setStyle(sf::Text::Bold); 
-		//std::ostringstream end, time;  
-    	//end  << player.getBestScore(); 
-    	//time << 
-    	end.setString("END! Your best score: "); //+ end.str());
-    	//m_world->Step(0, 8, 3);
-    	end.setPosition( 150, 250);
-
-    	m_window->draw(end);
-
-    	clock.restart();
-    	sf::Time elapsed2 = clock.getElapsedTime();
-    	std::cout << elapsed2.asSeconds();
-    	//while (elapsed2.asSeconds() < 10) 
-    		//std::cout << elapsed2.asSeconds() << "\n" ;
-	}
+	
 
     playerTime << elapsed1.asSeconds();  
     bestScore  << player.getBestScore();
@@ -373,4 +353,22 @@ void Game::step() {
 		m_window->draw(sTire);
 	}
 	m_window->draw(text);
+
+	// if(1 == 1) {
+	// 	music.stop();
+	// 	std::ostringstream lol;
+ //   		lol << elapsed1.asSeconds();  
+	// 	//player.pushBack(elapsed1.asSeconds());
+	// 	sf::Text end;
+	//     end.setFont(font); 
+	//     end.setString("");
+	//     end.setCharacterSize(300);
+	//     end.setColor(sf::Color::White);
+	//     end.setStyle(sf::Text::Bold); 
+	//     end.setString(" " + lol.str() + '\n');
+	//     end.setPosition(350, 650);
+
+ //        this->getWorld()->Step(0, 8, 3);
+ //        m_window->draw(end);
+ //    }
 }
