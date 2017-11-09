@@ -3,6 +3,8 @@
 Final project for PREP_Technopark
 Summer 2017
 
+Game on c++ with graphic library SFML and physics engine box2D.
+
 Итоговый проект по подготовительному курсу Технопарка 
 Лето 2017
 
