@@ -14,10 +14,11 @@ Game on c++ with graphic library SFML and physics engine box2D.
 # Compil
 
 Компилируется с флагами 
+```bash
 g++ -c *.cc -std=c++11 &&  g++ *.o -o lol -lsfml-graphics 
 -lsfml-window -lsfml-system -lGLU -lGL -lX11 -lglui -lsfml-network 
 -lglut -lBox2D -lsfml-audio && ./lol
-
+```
 
 # Result
 
